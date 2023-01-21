@@ -1,6 +1,6 @@
 package com.example.classicalmusic.controller;
 
-import com.example.classicalmusic.model.Venues;
+import com.example.classicalmusic.model.Venue;
 import com.example.classicalmusic.service.VenuesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,28 +23,28 @@ public class VenuesController {
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Provides all venues available in the classical-music application.")
-    public Iterable<Venues> getAllVenues() {
+    public Iterable<Venue> getAllVenues() {
         return  venuesService.getVenues();
     }
 
     @GetMapping("{id}")
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Provides venues details for the supplied venue id from the classical-music application.")
-    public  Venues getVenueById(@PathVariable("id") long venueId) {
+    public Venue getVenueById(@PathVariable("id") long venueId) {
         return venuesService.getVenueById(venueId);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     @Operation(summary = "Creates a new venue in the classical-music application")
-    public Venues createVenue(@RequestBody Venues venue) {
+    public Venue createVenue(@RequestBody Venue venue) {
         return venuesService.createVenue(venue);
     }
 
     @PutMapping("{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(summary = "Updates the venue details in the classical-music application for the supplied venue id.")
-    public Venues updateVenue(@RequestBody Venues venue, @PathVariable long id) {
+    public Venue updateVenue(@RequestBody Venue venue, @PathVariable long id) {
         return venuesService.updateVenue(venue, id);
     }
 
@@ -53,20 +53,20 @@ public class VenuesController {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(summary = "Updates the venue details in the classical-music application for the supplied venue id.")
     public void updateExistingVenue(@RequestBody Map<String, Object> updates, @PathVariable long id) {
-        Venues venues = venuesService.getVenueById(id);
+        Venue venue = venuesService.getVenueById(id);
         updates.forEach(
                 (update,value) -> {
                     switch (update) {
                         case "name":
-                            venues.setName((String) value);
+                            venue.setName((String) value);
                             break;
                         case "place":
-                            venues.setPlace((String) value);
+                            venue.setPlace((String) value);
                             break;
                     }
                 }
         );
-        venuesService.updateVenue(venues, id);
+        venuesService.updateVenue(venue, id);
     }
 
     @DeleteMapping("{id}")

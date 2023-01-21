@@ -1,18 +1,18 @@
 package com.example.classicalmusic.service;
 
-import com.example.classicalmusic.model.Venues;
+import com.example.classicalmusic.model.Venue;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface VenuesService {
 
-    Venues createVenue(Venues venue);
-    Iterable<Venues> getVenues();
+    Venue createVenue(Venue venue);
+    Iterable<Venue> getVenues();
 
-    Venues getVenueById(long id);
+    Venue getVenueById(long id);
 
-    Venues updateVenue(Venues venue, long id);
+    Venue updateVenue(Venue venue, long id);
 
     void deleteById(long id);
-    Iterable<Venues> getAllByPlace(String place);
+    Iterable<Venue> getAllByPlace(String place);
 }

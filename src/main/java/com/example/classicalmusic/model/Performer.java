@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "PERFORMERS")
-public class Performers {
+public class Performer {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +20,11 @@ public class Performers {
     @Column(name = "ROLE")
     private String role;
 
-    public Performers() {
+    public Performer() {
 
     }
 
-    public Performers(long id, String name, String surname, String role) {
+    public Performer(long id, String name, String surname, String role) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -67,9 +67,9 @@ public class Performers {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Performers)) return false;
-        Performers performers = (Performers) o;
-        return name.equals(performers.name) && surname.equals(performers.surname);
+        if (!(o instanceof Performer)) return false;
+        Performer performer = (Performer) o;
+        return name.equals(performer.name) && surname.equals(performer.surname);
     }
 
     @Override

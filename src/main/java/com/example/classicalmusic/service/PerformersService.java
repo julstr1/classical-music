@@ -1,17 +1,17 @@
 package com.example.classicalmusic.service;
 
-import com.example.classicalmusic.model.Performers;
+import com.example.classicalmusic.model.Performer;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface PerformersService {
-    Performers createPerformer(Performers performers);
-    Iterable<Performers> getPerformers();
+    Performer createPerformer(Performer performer);
+    Iterable<Performer> getPerformers();
 
-    Performers getPerformerById(long id);
+    Performer getPerformerById(long id);
 
-    Performers updatePerformer(Performers performers,  long id);
+    Performer updatePerformer(Performer performer, long id);
 
     void deleteById(long id);
-    Iterable<Performers> getAllByRole(String role);
+    Iterable<Performer> getAllByRole(String role);
 }

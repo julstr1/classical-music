@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "VENUES")
-public class Venues {
+public class Venue {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +15,10 @@ public class Venues {
     @Column(name = "place")
     private String place;
 
-    public Venues() {
+    public Venue() {
     }
 
-    public Venues(long id, String name, String place) {
+    public Venue(long id, String name, String place) {
         this.id = id;
         this.name = name;
         this.place = place;
@@ -51,9 +51,9 @@ public class Venues {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Venues)) return false;
-        Venues venues = (Venues) o;
-        return name.equals(venues.name) && place.equals(venues.place);
+        if (!(o instanceof Venue)) return false;
+        Venue venue = (Venue) o;
+        return name.equals(venue.name) && place.equals(venue.place);
     }
 
     @Override

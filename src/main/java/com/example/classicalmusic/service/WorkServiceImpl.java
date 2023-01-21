@@ -1,7 +1,6 @@
 package com.example.classicalmusic.service;
 
 import com.example.classicalmusic.exception.ResourceNotFoundException;
-import com.example.classicalmusic.model.Venues;
 import com.example.classicalmusic.model.Work;
 import com.example.classicalmusic.repository.WorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.example.classicalmusic.service;
 
 import com.example.classicalmusic.exception.ResourceNotFoundException;
-import com.example.classicalmusic.model.Performers;
+import com.example.classicalmusic.model.Performer;
 import com.example.classicalmusic.repository.PerformersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,28 +16,28 @@ public class PerformersServiceImpl implements PerformersService {
     }
 
     @Override
-    public Performers createPerformer(Performers performers) {
-        return performersRepository.save(performers);
+    public Performer createPerformer(Performer performer) {
+        return performersRepository.save(performer);
     }
 
     @Override
-    public Iterable<Performers> getPerformers() {
+    public Iterable<Performer> getPerformers() {
         return performersRepository.findAll();
     }
 
     @Override
-    public Performers getPerformerById(long id) {
+    public Performer getPerformerById(long id) {
         return performersRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(String.format("No performer with id %s exists.", id)));
     }
 
     @Override
-    public Iterable<Performers> getAllByRole(String role) {
+    public Iterable<Performer> getAllByRole(String role) {
         return performersRepository.findAllByRole(role);
     }
 
     @Override
-    public Performers updatePerformer(Performers newPerformer, long id) {
-        Performers performer = performersRepository.findById(id)
+    public Performer updatePerformer(Performer newPerformer, long id) {
+        Performer performer = performersRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No performer with id %s exists.", id)));
         performer.setRole(newPerformer.getRole());
         performer.setName(newPerformer.getName());
