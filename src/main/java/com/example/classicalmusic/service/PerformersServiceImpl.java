@@ -39,10 +39,10 @@ public class PerformersServiceImpl implements PerformersService {
     public Performers updatePerformer(Performers newPerformer, long id) {
         Performers performer = performersRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("No performer with id %s exists.", id)));
-                    performer.setRole(newPerformer.getRole());
-                    performer.setName(newPerformer.getName());
-                    performer.setSurname(newPerformer.getSurname());
-                    return performersRepository.save(performer);
+        performer.setRole(newPerformer.getRole());
+        performer.setName(newPerformer.getName());
+        performer.setSurname(newPerformer.getSurname());
+        return performersRepository.save(performer);
     }
 
     @Override

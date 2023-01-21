@@ -1,5 +1,7 @@
 package com.example.classicalmusic.service;
 
+import com.example.classicalmusic.exception.ResourceNotFoundException;
+import com.example.classicalmusic.model.Venues;
 import com.example.classicalmusic.model.Work;
 import com.example.classicalmusic.repository.WorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class WorkServiceImpl implements WorkService {
 
     @Override
     public Work getWorkById(long id) {
-        return workRepository.findById(id).get();
+        return workRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(String.format("No work with id %s exists.", id)));
     }
 
     @Override
@@ -37,22 +39,19 @@ public class WorkServiceImpl implements WorkService {
 
     @Override
     public Work updateWork(Work newWork, long id) {
-        return workRepository.findById(id)
-                .map(work -> {
-                    work.setGenre(newWork.getGenre());
-                    work.setPopular(newWork.getPopular());
-                    work.setRecommended(newWork.getRecommended());
-                    work.setTitle(newWork.getTitle());
-                    return workRepository.save(work);
-                })
-                .orElseGet(() -> {
-                    newWork.setId(id);
-                    return workRepository.save(newWork);
-                });
+        Work work = workRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No work with id %s exists.", id)));
+        work.setGenre(newWork.getGenre());
+        work.setPopular(newWork.getPopular());
+        work.setRecommended(newWork.getRecommended());
+        work.setTitle(newWork.getTitle());
+        return workRepository.save(work);
     }
 
     @Override
     public void deleteById(long id) {
+        workRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("No work with id %s exists.", id)));
         workRepository.deleteById(id);
     }
 }
