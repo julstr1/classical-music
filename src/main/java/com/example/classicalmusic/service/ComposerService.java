@@ -8,5 +8,9 @@ public interface ComposerService {
     Iterable<Composer> getComposers();
 
     Composer getComposerById(long id);
+
+    Composer updateComposer(Composer composer, long id);
+
+    void deleteById(long id);
     Iterable<Composer> getAllByEpoch(String epoch);
 }
