@@ -1,6 +1,7 @@
 package com.example.classicalmusic.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "WORKS")
@@ -11,19 +12,23 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotEmpty
     @Column(name = "TITLE")
     private String title;
 
+    @NotEmpty
     @Column(name = "GENRE")
     private String genre;
 
+    @NotEmpty
     @Column(name = "POPULAR")
     private String popular;
 
+    @NotEmpty
     @Column(name = "RECOMMENDED")
-    private String recommended;
+    private int recommended;
 
-    public Work(String title, String genre, String popular, String recommended) {
+    public Work(String title, String genre, String popular, int recommended) {
         this.title = title;
         this.genre = genre;
         this.popular = popular;
@@ -49,7 +54,7 @@ public class Work {
         return popular;
     }
 
-    public String getRecommended() {
+    public int getRecommended() {
         return recommended;
     }
 
@@ -69,7 +74,7 @@ public class Work {
         this.popular = popular;
     }
 
-    public void setRecommended(String recommended) {
+    public void setRecommended(int recommended) {
         this.recommended = recommended;
     }
 

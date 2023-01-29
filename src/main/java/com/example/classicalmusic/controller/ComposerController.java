@@ -2,12 +2,16 @@ package com.example.classicalmusic.controller;
 
 import com.example.classicalmusic.model.Composer;
 import com.example.classicalmusic.service.ComposerService;
+import com.nimbusds.jwt.JWT;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
@@ -25,27 +29,27 @@ public class ComposerController {
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Provides all composers available in the classical-music application.")
-    public Iterable<Composer> getAllComposers() {
+    public Iterable<Composer> getAllComposers(@AuthenticationPrincipal Jwt jwt) {
         return  composerService.getComposers();
     }
 
     @GetMapping("{id}")
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Provides composers details for the supplied composer id from the classical-music application.")
-    public  Composer getComposerById(@PathVariable("id") long composerId) {
+    public  Composer getComposerById(@PathVariable("id") long composerId, @AuthenticationPrincipal Jwt jwt) {
         return composerService.getComposerById(composerId);
     }
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     @Operation(summary = "Creates a new composer in the classical-music application")
-    public Composer createComposer(@RequestBody Composer composer) {
+    public Composer createComposer(@Valid @RequestBody Composer composer, @AuthenticationPrincipal Jwt jwt) {
         return composerService.createComposer(composer);
     }
 
     @PutMapping("{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(summary = "Updates the composer details in the classical-music application for the supplied composer id.")
-    public Composer updateComposer(@RequestBody Composer composer, @PathVariable long id) {
+    public Composer updateComposer(@Valid @RequestBody Composer composer, @PathVariable long id, @AuthenticationPrincipal Jwt jwt) {
         return composerService.updateComposer(composer, id);
     }
 
@@ -53,7 +57,7 @@ public class ComposerController {
     @PatchMapping("{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(summary = "Updates the composer details in the classical-music application for the supplied composer id.")
-    public void updateExistingComposer(@RequestBody Map<String, Object> updates, @PathVariable long id) {
+    public void updateExistingComposer(@Valid @RequestBody Map<String, Object> updates, @PathVariable long id, @AuthenticationPrincipal Jwt jwt) {
         Composer composer = composerService.getComposerById(id);
         updates.forEach(
                 (update,value) -> {
@@ -82,7 +86,7 @@ public class ComposerController {
     @DeleteMapping("{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(summary = "Deletes the composer details for the supplied composer id from the classical-music application.")
-    public void deleteComposerById(@PathVariable("id") long composerId) {
+    public void deleteComposerById(@PathVariable("id") long composerId, @AuthenticationPrincipal Jwt jwt) {
         composerService.deleteById(composerId);
     }
 

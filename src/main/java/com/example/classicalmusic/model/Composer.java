@@ -1,6 +1,7 @@
 package com.example.classicalmusic.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 @Entity
@@ -12,18 +13,22 @@ public class Composer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotEmpty
     @Column(name = "NAME")
     private String name;
 
+    @NotEmpty
     @Column(name = "COMPLETE_NAME")
     private String completeName;
 
+    @NotEmpty
     @Column(name = "BIRTH")
     private String birth;
 
     @Column(name = "DEATH")
     private String death;
 
+    @NotEmpty
     @Column(name = "EPOCH")
     private String epoch;
 

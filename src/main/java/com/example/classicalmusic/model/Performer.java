@@ -1,6 +1,7 @@
 package com.example.classicalmusic.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 @Entity
@@ -11,12 +12,15 @@ public class Performer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotEmpty
     @Column(name = "NAME")
     private String name;
 
+    @NotEmpty
     @Column(name = "SURNAME")
     private String surname;
 
+    @NotEmpty
     @Column(name = "ROLE")
     private String role;
 
